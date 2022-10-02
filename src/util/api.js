@@ -8,7 +8,7 @@ export async function getPosts() {
 
 export async function getPost(id) {
   const response = await fetch(
-    'https://jsonplaceholder.typicode.com/posts/' + id
+    `https://jsonplaceholder.typicode.com/posts/${id}`
   );
   if (!response.ok) {
     throw { message: 'Failed to fetch post.', status: 500 };
