@@ -10,9 +10,14 @@ import {
   BlogPostsPage,
   PostDetailPage,
   NewPostPage,
+  DeferredBlogPostsPage,
 } from "./pages";
 // Loaders
-import { blogPostsLoader, blogPostLoader } from "./pages";
+import {
+  blogPostsLoader,
+  blogPostLoader,
+  deferredBlogPostsLoader,
+} from "./pages";
 // Actions
 import { newPostAction } from "./pages";
 
@@ -23,9 +28,9 @@ function App() {
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       children: [
-        { 
-          index: true, 
-          element: <WelcomePage /> 
+        {
+          index: true,
+          element: <WelcomePage />,
         },
         {
           path: blog,
@@ -33,8 +38,8 @@ function App() {
           children: [
             {
               index: true,
-              element: <BlogPostsPage />,
-              loader: blogPostsLoader,
+              element: <DeferredBlogPostsPage />,
+              loader: deferredBlogPostsLoader,
             },
             {
               path: postDetail,
