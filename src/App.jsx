@@ -1,37 +1,62 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { blog, main, newPost, postDetail } from "../routes";
 
-import BlogLayout from "./pages/BlogLayout";
-import BlogPostsPage, { loader as blogPostsLoader } from "./pages/BlogPosts";
-import ErrorPage from "./pages/ErrorPage";
-import NewPostPage from "./pages/NewPost";
-import PostDetailPage, { loader as blogPostloader } from "./pages/PostDetail";
-import RootLayout from "./pages/RootLayout";
-import WelcomePage from "./pages/Welcome";
+// Pages
+import {
+  BlogLayout,
+  ErrorPage,
+  RootLayout,
+  WelcomePage,
+  BlogPostsPage,
+  PostDetailPage,
+  NewPostPage,
+} from "./pages";
+// Loaders
+import { blogPostsLoader, blogPostLoader } from "./pages";
+// Actions
+import { newPostAction } from "./pages";
 
 function App() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<RootLayout />} errorElement={<ErrorPage />}>
-        <Route index element={<WelcomePage />} />
-        <Route path="/blog" element={<BlogLayout />}>
-          <Route index element={<BlogPostsPage />} loader={blogPostsLoader} />
-          <Route
-            path=":id"
-            element={<PostDetailPage />}
-            loader={blogPostloader}
-          />
-        </Route>
-        <Route path="/blog/new" element={<NewPostPage />} />
-      </Route>
-    )
-  );
+  const router = createBrowserRouter([
+    {
+      path: main,
+      element: <RootLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        { 
+          index: true, 
+          element: <WelcomePage /> 
+        },
+        {
+          path: blog,
+          element: <BlogLayout />,
+          children: [
+            {
+              index: true,
+              element: <BlogPostsPage />,
+              loader: blogPostsLoader,
+            },
+            {
+              path: postDetail,
+              element: <PostDetailPage />,
+              loader: blogPostLoader,
+            },
+          ],
+        },
+        {
+          path: newPost,
+          element: <NewPostPage />,
+          action: newPostAction,
+        },
+      ],
+    },
+  ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
