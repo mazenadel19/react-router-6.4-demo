@@ -3,3 +3,4 @@ export const main = "/";
 export const blog = "/blog";
 export const postDetail = ":id";
 export const newPost = "/blog/new";
+export const newsletter = "/newsletter"

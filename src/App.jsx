@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { blog, main, newPost, postDetail } from "../routes";
+import { blog, main, newPost, newsletter, postDetail } from "../routes";
+import NewsletterSignup from "./components/NewsletterSignup";
 
 // Pages
 import {
@@ -19,7 +20,7 @@ import {
   deferredBlogPostsLoader,
 } from "./pages";
 // Actions
-import { newPostAction } from "./pages";
+import { newPostAction, newsletterAction } from "./pages";
 
 function App() {
   const router = createBrowserRouter([
@@ -52,6 +53,10 @@ function App() {
           path: newPost,
           element: <NewPostPage />,
           action: newPostAction,
+        },
+        {
+          path: newsletter,
+          action: newsletterAction,
         },
       ],
     },
